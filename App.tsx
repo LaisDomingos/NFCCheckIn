@@ -51,7 +51,7 @@ export default function App() {
 
   const lerNFC = async () => {
     try {
-      /* await NfcManager.requestTechnology(NfcTech.Ndef, {
+      await NfcManager.requestTechnology(NfcTech.Ndef, {
         alertMessage: 'Aproxime seu dispositivo do tag NFC',
       });
       const tag = await NfcManager.getTag();
@@ -59,8 +59,8 @@ export default function App() {
 
       await NfcManager.cancelTechnologyRequest();
 
-      const tagId = tag?.id ?? '';*/
-      const tagId = 'TAG123'
+      const tagId = tag?.id ?? '';
+      // const tagId = 'TAG123' -> para testar manualmente
       if (!tagId) {
         Alert.alert('Erro', 'Tag NFC sem ID');
         return;
