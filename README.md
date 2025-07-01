@@ -1,98 +1,91 @@
+# Party Check-in NFC App 🎉📲
 
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+App React Native para controle simples de entrada, acesso VIP e saída de participantes em um evento, usando NFC para identificar os convidados.
 
-# Getting Started
+---
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Funcionalidades
 
-## Step 1: Start Metro
+- Leitura de tags NFC para identificar participantes pelo ID.
+- Controle de fluxo por estações: **ENTRADA**, **SALA_VIP** e **SAIDA**.
+- Validação de acesso VIP para participantes autorizados.
+- Armazenamento local dos dados de participantes e seus status usando AsyncStorage.
+- Simulação de leitura NFC para testes manuais.
+- Interface simples com botões para alternar entre estações.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+---
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Tecnologias
 
-```sh
-# Using npm
-npm start
+- React Native
+- TypeScript
+- react-native-nfc-manager (para leitura NFC)
+- AsyncStorage (armazenamento local)
 
-# OR using Yarn
-yarn start
+---
+
+## Como usar
+
+### Pré-requisitos
+
+- Node.js e npm/yarn instalados
+- React Native CLI instalado globalmente
+- Ambiente configurado para desenvolvimento React Native (Android Studio, Xcode etc)
+- Dispositivo físico com NFC habilitado (ou emulador com suporte a NFC — veja nota abaixo)
+
+### Instalação
+
+1. Clone o repositório ou crie o projeto:
+
+```bash
+npx react-native init NFCCheckIn
+```
+2. Instale dependências:
+
+```bash
+npm install react-native-nfc-manager @react-native-async-storage/async-storage
+npx pod-install
+```
+3. Copie o código do App.tsx para seu projeto.
+
+### Executando
+Inicie o servidor Metro:
+
+```bash
+npx react-native start
+```
+Em outro terminal, rode o app no dispositivo/emulador:
+```bash
+npx react-native run-android
+# ou
+npx react-native run-ios
+```
+### Testes no Android Studio IDE
+- No emulador Android, o NFC não é suportado, portanto você não poderá testar a leitura NFC real.
+- Para testes manuais no emulador ou durante desenvolvimento, use o botão “📲 Simular Leitura” que simula a leitura de uma tag fixa (TAG456).
+- Para testar a leitura NFC real, você deve rodar o app em um dispositivo físico com NFC habilitado.
+
+### Usando o app
+- Escolha a estação (ENTRADA, SALA_VIP, SAIDA) no topo.
+- Para testar a leitura NFC, aproxime uma tag NFC válida do dispositivo físico ou use o botão “📲 Simular Leitura” para simular uma tag.
+- O app valida e atualiza o status do participante, mostrando alertas para ações permitidas ou negadas.
+
+### Estrutura de dados
+O app mantém um registro de participantes, cada um com:
+- name: nome do convidado
+- canAccessVIP: booleano para permissão VIP
+- status: objeto com flags booleanas para entrada, sala_vip e saida
+
+Os IDs das tags NFC são usados para identificar os participantes.
+
+### Configurações importantes
+No Android, é necessário configurar as permissões NFC no AndroidManifest.xml:
+
+```xml
+<uses-permission android:name="android.permission.NFC" />
+<uses-feature android:name="android.hardware.nfc" android:required="true" />
+No iOS, suporte NFC é limitado a dispositivos compatíveis e requer configuração no Xcode.
 ```
 
-## Step 2: Build and run your app
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+![image](https://github.com/user-attachments/assets/0a8b7dce-23b8-4c62-a746-32c72e3deccc)
