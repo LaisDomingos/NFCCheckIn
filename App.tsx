@@ -149,7 +149,7 @@ export default function App() {
       </View>
 
       <TouchableOpacity style={styles.nfcButton} onPress={lerNFC}>
-        <Text style={styles.nfcButtonText}>📲 Simular Leitura</Text>
+        <Text style={styles.nfcButtonText}>📲 Aproxime da pulseira</Text>
       </TouchableOpacity>
 
       {participante && (
